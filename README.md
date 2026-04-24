@@ -52,7 +52,7 @@ The changes live in a companion fork of llama.cpp:
 
 > **[luxemque/llama.cpp @ `parallel-rpc-loading`](https://github.com/luxemque/llama.cpp/tree/parallel-rpc-loading)**
 
-Four commits, each a cohesive piece of the change:
+Five commits, each a cohesive piece of the change:
 
 | Commit | Piece |
 |---|---|
@@ -60,6 +60,7 @@ Four commits, each a cohesive piece of the change:
 | [`eb282ee`](https://github.com/luxemque/llama.cpp/commit/eb282ee) | `ggml-rpc`: worker `stff_pool` + dedicated ack-sender + `tset_mu` |
 | [`6856c96`](https://github.com/luxemque/llama.cpp/commit/6856c96) | `llama-model-loader`: parallel-RPC load head stack (async dispatch + head pread pool) |
 | [`0c322ff`](https://github.com/luxemque/llama.cpp/commit/0c322ff) | Docs: breadcrumb `PARALLEL_RPC_LOADING.md` pointing at this archive |
+| [`dbea709`](https://github.com/luxemque/llama.cpp/commit/dbea709) | `ggml-rpc`: worker `pread` conversion + `LLAMA_RPC_MODEL_ROOT` path-root guard |
 
 **For running it** — env vars, the exact `llama-server` command, the speedup table broken out by config — see [`PARALLEL_RPC_LOADING.md`](PARALLEL_RPC_LOADING.md) in this repo.
 

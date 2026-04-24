@@ -48,7 +48,7 @@ New RPC command. Instead of head pushing bytes, head sends `{path, file_offset, 
 
 - Gated on env vars: `LLAMA_RPC_PARALLEL_LOAD=1` (probes the capability) and `LLAMA_RPC_PARALLEL_LOAD_ASYNC=1` (enables fire-and-forget dispatch with a per-endpoint receiver thread on the head side).
 - Requires the model file to be reachable at the same absolute path on head and each worker. The cleanest arrangement is to replicate the file onto each worker's local disk; a shared filesystem at the same mount point works too but inherits its latency.
-- If the capability probe fails (old worker), the head falls back to the stock head-push path silently.
+- The probe is a *local* proc-address lookup — it tells the head whether its own RPC backend build exposes the new command, not whether the remote worker does. Mixed new-head / old-worker deployments are unsupported: the head will issue `SET_TENSOR_FROM_FILE`, the old worker will close the socket on the unknown opcode, and load will abort. Run matching binaries on every node.
 
 Head-side plumbing (`src/llama-model-loader.cpp`, `src/llama-model.cpp`) includes a per-endpoint async dispatcher thread, a receiver thread draining acks, and `flush_pending_rpc_reads()` at end of load to join them.
 
@@ -58,7 +58,8 @@ Each rpc-server now runs a thread pool (`stff_pool`) that issues `pread()` in pa
 
 - Knob: `LLAMA_RPC_STFF_POOL` (default 8, 0 disables the pool → falls back to the serial main-thread path).
 - The ack-sender thread is what unlocks this: a first-cut design without it deadlocked because the worker's main thread only drained acks when forced to (backpressure or a non-STFF command arriving). Once the head finished dispatching and waited for the last batch of acks, both sides wedged.
-- `pread` is thread-safe and independent of fd offset, so the same fd serves the pool without coordination.
+- POSIX only — `#ifndef _WIN32` guards `pread`. Each pool thread opens its own fd and calls `pread(fd, buf, n, off)`; because pread takes an explicit offset, no locking between threads is needed. Windows keeps an `ifstream`-per-call fallback (also pool-friendly, but not `pread`).
+- `LLAMA_RPC_MODEL_ROOT=/some/path` (optional) restricts the file paths the worker will accept to anything resolving under that root. Unset = no restriction. Defence-in-depth over the existing syntactic path checks; recommended whenever the rpc-server is reachable from anything other than the trusted head.
 
 Measured: slowest-worker RPC wall 76 s → ~41 s, 1.84×.
 
@@ -76,7 +77,7 @@ Measured: head ring-read phase 67.5 s → 25 s, 2.7×.
 
 Under pool=8 without coordination, 8 pool threads call `ggml_backend_tensor_set` concurrently. Per-tensor HtoD time grew from ~5 ms (single-stream probe) to ~130 ms. A mutex serialising the tset call across pool threads drops it to ~132 ms — small improvement (~2 s off loader wall), shipped.
 
-A deeper fix — dedicated single uploader thread so the CUDA context never switches threads — was attempted and did deliver per-tensor tset of ~52 ms (3× improvement), but regressed setup time from ~10 s to ~37 s per worker (17 pinned staging slots instead of 9 → more lazy `cudaHostAlloc` / grow events dominating startup) and one worker stalled partway through load with an unresolved backpressure interaction. Reverted. See [`findings.md`](findings.md) §"Refactor F" for the full writeup — future work.
+A deeper fix — dedicated single uploader thread so the CUDA context never switches threads — was attempted and did deliver per-tensor tset of ~52 ms (3× improvement), but regressed setup time from ~10 s to ~37 s per worker (17 pinned staging slots instead of 9 → more lazy `cudaHostAlloc` / grow events dominating startup) and one worker stalled partway through load with an unresolved backpressure interaction. Reverted. Future work: eagerly pre-allocate all staging slots at server start so first-use doesn't dominate setup, and diagnose the specific-worker stall.
 
 ## Quick start
 
@@ -97,13 +98,14 @@ env LLAMA_RPC_PARALLEL_LOAD=1 LLAMA_RPC_PARALLEL_LOAD_ASYNC=1 \
 
 For production, wrap this in a supervisor (systemd, runit, etc.) so workers come up before the head attempts to connect.
 
-All four env vars are optional:
+All six env vars are optional:
 
-- `LLAMA_RPC_PARALLEL_LOAD=1` — turns on the worker-read path (falls back to head-push silently if workers don't support it).
+- `LLAMA_RPC_PARALLEL_LOAD=1` — turns on the worker-read path on the head side (requires every worker to run a matching binary; see Refactor 2).
 - `LLAMA_RPC_PARALLEL_LOAD_ASYNC=1` — fire-and-forget dispatch + per-endpoint async receiver threads on the head.
 - `LLAMA_RPC_LOAD_PROFILE=1` — adds per-worker and per-phase timing to the log (setup / read / tset sums).
 - `LLAMA_RPC_STFF_POOL=<N>` — rpc-server-side pool width (default 8, 0 disables).
 - `LLAMA_HEAD_READ_POOL=<N>` — head-side pool width for CUDA0 ring-read (default 8, 0 disables).
+- `LLAMA_RPC_MODEL_ROOT=/path` — rpc-server-side: reject `SET_TENSOR_FROM_FILE` requests whose resolved path is not under this root. Unset = no restriction.
 
 ## Preconditions for the full 11–12× speedup
 
@@ -122,17 +124,17 @@ All four env vars are optional:
 
 ## Backward compatibility
 
-- **Protocol**: adds one new RPC command (`RPC_CMD_SET_TENSOR_FROM_FILE`) and two new proc-address exports (`ggml_backend_rpc_buffer_set_tensor_from_file`, `…_async`, `ggml_backend_rpc_flush_pending_reads`). Old workers that don't advertise the capability get the stock head-push path.
-- **Env vars only**: with no env vars set and no worker-read support, behaviour is byte-identical to stock.
+- **Protocol**: adds one new RPC command (`RPC_CMD_SET_TENSOR_FROM_FILE`) and two new proc-address exports (`ggml_backend_rpc_buffer_set_tensor_from_file`, `…_async`, `ggml_backend_rpc_flush_pending_reads`). The head-side proc-address probe checks the *local* RPC backend for the new symbols, not the remote worker — matching binaries across all nodes are required; mixed fleets will abort at load.
+- **Env vars only**: with no env vars set, behaviour is byte-identical to stock — nothing in the stock path is touched.
 - **Inference path unchanged.**
 
 ## Code touchpoints (diff vs. `master`)
 
-Five files, +1,554 / −46 lines:
+Five files, +1,650 / −46 lines:
 
 | file | +add | −rm | what |
 |---|---:|---:|---|
-| `ggml/src/ggml-rpc/ggml-rpc.cpp` | 942 | 2 | pinned staging, `stff_pool`, `stff_ack_sender`, `tset_mu`, `SET_TENSOR_FROM_FILE` command, head-side async dispatcher + receiver, probe instrumentation |
+| `ggml/src/ggml-rpc/ggml-rpc.cpp` | 1,038 | 2 | pinned staging, `stff_pool`, `stff_ack_sender`, `tset_mu`, `SET_TENSOR_FROM_FILE` command, worker `::pread` path, `LLAMA_RPC_MODEL_ROOT` guard, head-side async dispatcher + receiver, probe instrumentation |
 | `src/llama-model-loader.cpp` | 534 | 41 | `head_read_pool` class, pipelined ring-read loop, `launch_load_all_data` wrapper, `flush_pending_rpc_reads` integration, head-load profile instrumentation, `try_worker_read` path |
 | `ggml/include/ggml-rpc.h` | 38 | 1 | new proc-address exports, capability bits |
 | `src/llama-model-loader.h` | 29 | 0 | `launch_load_all_data` / `flush_pending_rpc_reads` declarations, dispatcher bookkeeping, `files_paths` for the worker-read path |
@@ -154,9 +156,13 @@ Most of the code is in `ggml-rpc.cpp`. Reasonable review order:
 - Startup overhead (RDMA probe × N workers, 8-shard metadata parse) is ~10–15 s and now a visible fraction of total. Low priority, cheap shaves available.
 - `pool_size` and `n_buffers` are env-var tuned; no auto-sizing based on NVMe bandwidth / core count.
 
-## Full diagnostic narrative
+## Hardware and measurement notes
 
-See [`findings.md`](findings.md) for the complete story — every refactor iteration, the blind alleys (mmap regression, warm/cold/primed sweep that revealed the Grace-Blackwell UMA cache ceiling, the first-cut QD=8 deadlock, the dedicated-uploader regression), and the measurement sweeps behind every number in this document.
+All numbers in this document come from one cluster: **1 head + 3 workers, all NVIDIA GB10 (Grace-Blackwell) nodes with 120 GiB LPDDR5X unified memory, local NVMe, 200 GbE RDMA between them, model replicated at the same path on each node.** Single data point — the relative win shifts with network and storage.
+
+- **Slower networks strengthen the case**: on stock llama.cpp, head-push cold load scales inversely with network bandwidth, so on 10/40 GbE the baseline is much worse than 701 s while the worker-read path (where bytes don't cross the wire) stays bounded by local NVMe. We have not measured this; the geometry says the speedup ratio increases.
+- **NFS-shared model with the optimized path**: not measured directly. Read QD>1 still helps (typical: 2–4× over QD=1 on NFS), but absolute wall is NFS-bound, not local-NVMe-bound.
+- **Unified-memory ("UMA") hardware has a non-obvious ceiling**: on GB10 the CPU and GPU share the same LPDDR5X pool. When the model loads (~80 GiB on each worker at our 318 GB / 3 workers split), only ~35 GiB of physical RAM is left for the OS page cache regardless of pre-launch priming. The intuition "warm page cache makes reads free" that applies to discrete-GPU boxes does not hold here — we verified cold, partially-warm, and fully-primed (112 GiB pre-read) runs produce identical transfer walls within noise. If you benchmark on UMA hardware, don't budget load time on cache-warm assumptions.
 
 ## License
 
