@@ -1,0 +1,582 @@
+LAUNCH_T0_NS=1777068381080339092
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 124546 MiB):
+  Device 0: NVIDIA GB10, compute capability 12.1, VMM: yes, VRAM: 124546 MiB
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2620 inline=316
+RDMA activated: qpn=2620->1288 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2621 inline=316
+RDMA activated: qpn=2621->1202 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2622 inline=316
+RDMA activated: qpn=2622->1234 mtu=4096 rx_depth=24
+build_info: b8924-0c322ff0f
+system_info: n_threads = 20 (n_threads_batch = 20) / 20 | CUDA : ARCHS = 1210 | USE_GRAPHS = 1 | PEER_MAX_BATCH_SIZE = 128 | BLACKWELL_NATIVE_FP4 = 1 | CPU : NEON = 1 | ARM_FMA = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+init: using 19 threads for HTTP server
+start: binding port with default address family
+main: loading model
+srv    load_model: loading model '/home/llm-agent/model-cache/Kimi-K2.6-Q2/Kimi-K2.6-UD-Q2_K_XL-00001-of-00008.gguf'
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2623 inline=316
+RDMA activated: qpn=2623->1289 mtu=4096 rx_depth=24
+llama_model_load_from_file_impl: using device RPC0 (10.10.0.1:50052) (unknown id) - 117707 MiB free
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2624 inline=316
+RDMA activated: qpn=2624->1203 mtu=4096 rx_depth=24
+llama_model_load_from_file_impl: using device RPC1 (10.10.0.3:50052) (unknown id) - 119373 MiB free
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2625 inline=316
+RDMA activated: qpn=2625->1235 mtu=4096 rx_depth=24
+llama_model_load_from_file_impl: using device RPC2 (10.10.0.4:50052) (unknown id) - 119544 MiB free
+llama_model_load_from_file_impl: using device CUDA0 (NVIDIA GB10) (000f:01:00.0) - 119363 MiB free
+llama_model_loader: additional 7 GGUFs metadata loaded.
+llama_model_loader: loaded meta data with 64 key-value pairs and 1096 tensors from /home/llm-agent/model-cache/Kimi-K2.6-Q2/Kimi-K2.6-UD-Q2_K_XL-00001-of-00008.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = deepseek2
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                               general.name str              = Kimi-K2.6
+llama_model_loader: - kv   3:                           general.basename str              = Kimi-K2.6
+llama_model_loader: - kv   4:                       general.quantized_by str              = Unsloth
+llama_model_loader: - kv   5:                         general.size_label str              = 384x14B
+llama_model_loader: - kv   6:                            general.license str              = other
+llama_model_loader: - kv   7:                       general.license.name str              = modified-mit
+llama_model_loader: - kv   8:                           general.repo_url str              = https://huggingface.co/unsloth
+llama_model_loader: - kv   9:                   general.base_model.count u32              = 1
+llama_model_loader: - kv  10:                  general.base_model.0.name str              = Kimi K2.6
+llama_model_loader: - kv  11:          general.base_model.0.organization str              = Moonshotai
+llama_model_loader: - kv  12:              general.base_model.0.repo_url str              = https://huggingface.co/moonshotai/Kim...
+llama_model_loader: - kv  13:                               general.tags arr[str,3]       = ["compressed-tensors", "unsloth", "im...
+llama_model_loader: - kv  14:                      deepseek2.block_count u32              = 61
+llama_model_loader: - kv  15:                   deepseek2.context_length u32              = 262144
+llama_model_loader: - kv  16:                 deepseek2.embedding_length u32              = 7168
+llama_model_loader: - kv  17:              deepseek2.feed_forward_length u32              = 18432
+llama_model_loader: - kv  18:             deepseek2.attention.head_count u32              = 64
+llama_model_loader: - kv  19:          deepseek2.attention.head_count_kv u32              = 1
+llama_model_loader: - kv  20:                deepseek2.rope.scaling.type str              = yarn
+llama_model_loader: - kv  21:              deepseek2.rope.scaling.factor f32              = 64.000000
+llama_model_loader: - kv  22: deepseek2.rope.scaling.original_context_length u32              = 4096
+llama_model_loader: - kv  23:      deepseek2.rope.scaling.yarn_beta_fast f32              = 32.000000
+llama_model_loader: - kv  24:      deepseek2.rope.scaling.yarn_beta_slow f32              = 1.000000
+llama_model_loader: - kv  25:                   deepseek2.rope.freq_base f32              = 50000.000000
+llama_model_loader: - kv  26: deepseek2.attention.layer_norm_rms_epsilon f32              = 0.000010
+llama_model_loader: - kv  27:                deepseek2.expert_used_count u32              = 8
+llama_model_loader: - kv  28:               deepseek2.expert_group_count u32              = 1
+llama_model_loader: - kv  29:          deepseek2.expert_group_used_count u32              = 1
+llama_model_loader: - kv  30:               deepseek2.expert_gating_func u32              = 2
+llama_model_loader: - kv  31:        deepseek2.leading_dense_block_count u32              = 1
+llama_model_loader: - kv  32:                       deepseek2.vocab_size u32              = 163840
+llama_model_loader: - kv  33:            deepseek2.attention.q_lora_rank u32              = 1536
+llama_model_loader: - kv  34:           deepseek2.attention.kv_lora_rank u32              = 512
+llama_model_loader: - kv  35:             deepseek2.attention.key_length u32              = 576
+llama_model_loader: - kv  36:           deepseek2.attention.value_length u32              = 512
+llama_model_loader: - kv  37:         deepseek2.attention.key_length_mla u32              = 192
+llama_model_loader: - kv  38:       deepseek2.attention.value_length_mla u32              = 128
+llama_model_loader: - kv  39:       deepseek2.expert_feed_forward_length u32              = 2048
+llama_model_loader: - kv  40:                     deepseek2.expert_count u32              = 384
+llama_model_loader: - kv  41:              deepseek2.expert_shared_count u32              = 1
+llama_model_loader: - kv  42:             deepseek2.expert_weights_scale f32              = 2.827000
+llama_model_loader: - kv  43:              deepseek2.expert_weights_norm bool             = true
+llama_model_loader: - kv  44:             deepseek2.rope.dimension_count u32              = 64
+llama_model_loader: - kv  45: deepseek2.rope.scaling.yarn_log_multiplier f32              = 0.100000
+llama_model_loader: - kv  46:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  47:                         tokenizer.ggml.pre str              = kimi-k2
+llama_model_loader: - kv  48:                      tokenizer.ggml.tokens arr[str,163840]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  49:                  tokenizer.ggml.token_type arr[i32,163840]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  50:                      tokenizer.ggml.merges arr[str,163328]  = ["Ġ Ġ", "ĠĠ ĠĠ", "Ġ t", "i n",...
+llama_model_loader: - kv  51:                tokenizer.ggml.bos_token_id u32              = 163584
+llama_model_loader: - kv  52:                tokenizer.ggml.eos_token_id u32              = 163586
+llama_model_loader: - kv  53:            tokenizer.ggml.padding_token_id u32              = 163839
+llama_model_loader: - kv  54:                    tokenizer.chat_template str              = {%- macro render_content(msg) -%}\n   ...
+llama_model_loader: - kv  55:               general.quantization_version u32              = 2
+llama_model_loader: - kv  56:                          general.file_type u32              = 10
+llama_model_loader: - kv  57:                      quantize.imatrix.file str              = Kimi-K2.6-GGUF/imatrix_unsloth.gguf
+llama_model_loader: - kv  58:                   quantize.imatrix.dataset str              = unsloth_calibration_Kimi-K2.6.txt
+llama_model_loader: - kv  59:             quantize.imatrix.entries_count u32              = 789
+llama_model_loader: - kv  60:              quantize.imatrix.chunks_count u32              = 76
+llama_model_loader: - kv  61:                                   split.no u16              = 0
+llama_model_loader: - kv  62:                        split.tensors.count i32              = 1096
+llama_model_loader: - kv  63:                                split.count u16              = 8
+llama_model_loader: - type  f32:  365 tensors
+llama_model_loader: - type q4_0:    5 tensors
+llama_model_loader: - type q8_0:  245 tensors
+llama_model_loader: - type q4_K:    1 tensors
+llama_model_loader: - type q5_K:  241 tensors
+llama_model_loader: - type q6_K:   64 tensors
+llama_model_loader: - type iq2_xs:  118 tensors
+llama_model_loader: - type iq3_xxs:   57 tensors
+print_info: file format = GGUF V3 (latest)
+print_info: file type   = Q2_K - Medium
+print_info: file size   = 317.09 GiB (2.65 BPW) 
+load: 0 unused tokens
+load: printing all EOG tokens:
+load:   - 163585 ('[EOS]')
+load:   - 163586 ('<|im_end|>')
+load:   - 163593 ('[EOT]')
+load:   - 163839 ('[PAD]')
+load: special tokens cache size = 256
+load: token to piece cache size = 1.0606 MB
+print_info: arch                  = deepseek2
+print_info: vocab_only            = 0
+print_info: no_alloc              = 0
+print_info: n_ctx_train           = 262144
+print_info: n_embd                = 7168
+print_info: n_embd_inp            = 7168
+print_info: n_layer               = 61
+print_info: n_head                = 64
+print_info: n_head_kv             = 1
+print_info: n_rot                 = 64
+print_info: n_swa                 = 0
+print_info: is_swa_any            = 0
+print_info: n_embd_head_k         = 576
+print_info: n_embd_head_v         = 512
+print_info: n_gqa                 = 64
+print_info: n_embd_k_gqa          = 576
+print_info: n_embd_v_gqa          = 512
+print_info: f_norm_eps            = 0.0e+00
+print_info: f_norm_rms_eps        = 1.0e-05
+print_info: f_clamp_kqv           = 0.0e+00
+print_info: f_max_alibi_bias      = 0.0e+00
+print_info: f_logit_scale         = 0.0e+00
+print_info: f_attn_scale          = 0.0e+00
+print_info: n_ff                  = 18432
+print_info: n_expert              = 384
+print_info: n_expert_used         = 8
+print_info: n_expert_groups       = 1
+print_info: n_group_used          = 1
+print_info: causal attn           = 1
+print_info: pooling type          = -1
+print_info: rope type             = 0
+print_info: rope scaling          = yarn
+print_info: freq_base_train       = 50000.0
+print_info: freq_scale_train      = 0.015625
+print_info: n_ctx_orig_yarn       = 4096
+print_info: rope_yarn_log_mul     = 1.0000
+print_info: rope_finetuned        = unknown
+print_info: model type            = 671B
+print_info: model params          = 1.03 T
+print_info: general.name          = Kimi-K2.6
+print_info: n_layer_dense_lead    = 1
+print_info: n_lora_q              = 1536
+print_info: n_lora_kv             = 512
+print_info: n_embd_head_k_mla     = 192
+print_info: n_embd_head_v_mla     = 128
+print_info: n_ff_exp              = 2048
+print_info: n_expert_shared       = 1
+print_info: expert_weights_scale  = 2.8
+print_info: expert_weights_norm   = 1
+print_info: expert_gating_func    = sigmoid
+print_info: vocab type            = BPE
+print_info: n_vocab               = 163840
+print_info: n_merges              = 163328
+print_info: BOS token             = 163584 '[BOS]'
+print_info: EOS token             = 163586 '<|im_end|>'
+print_info: EOT token             = 163586 '<|im_end|>'
+print_info: PAD token             = 163839 '[PAD]'
+print_info: LF token              = 198 'Ċ'
+print_info: FIM PAD token         = 163839 '[PAD]'
+print_info: EOG token             = 163585 '[EOS]'
+print_info: EOG token             = 163586 '<|im_end|>'
+print_info: EOG token             = 163593 '[EOT]'
+print_info: EOG token             = 163839 '[PAD]'
+print_info: max token length      = 512
+load_tensors: loading model tensors, this can take a while... (mmap = false, direct_io = false)
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2626 inline=316
+RDMA activated: qpn=2626->1290 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2627 inline=316
+RDMA activated: qpn=2627->1204 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2628 inline=316
+RDMA activated: qpn=2628->1236 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2629 inline=316
+RDMA activated: qpn=2629->1291 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2630 inline=316
+RDMA activated: qpn=2630->1292 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2631 inline=316
+RDMA activated: qpn=2631->1293 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2632 inline=316
+RDMA activated: qpn=2632->1294 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2633 inline=316
+RDMA activated: qpn=2633->1295 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2634 inline=316
+RDMA activated: qpn=2634->1296 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2635 inline=316
+RDMA activated: qpn=2635->1297 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2636 inline=316
+RDMA activated: qpn=2636->1298 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2637 inline=316
+RDMA activated: qpn=2637->1299 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2638 inline=316
+RDMA activated: qpn=2638->1300 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2639 inline=316
+RDMA activated: qpn=2639->1301 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2640 inline=316
+RDMA activated: qpn=2640->1302 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2641 inline=316
+RDMA activated: qpn=2641->1303 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2642 inline=316
+RDMA activated: qpn=2642->1304 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2643 inline=316
+RDMA activated: qpn=2643->1305 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2644 inline=316
+RDMA activated: qpn=2644->1306 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2645 inline=316
+RDMA activated: qpn=2645->1307 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2646 inline=316
+RDMA activated: qpn=2646->1308 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2647 inline=316
+RDMA activated: qpn=2647->1205 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2648 inline=316
+RDMA activated: qpn=2648->1206 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2649 inline=316
+RDMA activated: qpn=2649->1207 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2650 inline=316
+RDMA activated: qpn=2650->1208 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2651 inline=316
+RDMA activated: qpn=2651->1209 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2652 inline=316
+RDMA activated: qpn=2652->1210 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2653 inline=316
+RDMA activated: qpn=2653->1211 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2654 inline=316
+RDMA activated: qpn=2654->1212 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2655 inline=316
+RDMA activated: qpn=2655->1213 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2656 inline=316
+RDMA activated: qpn=2656->1214 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2657 inline=316
+RDMA activated: qpn=2657->1215 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2658 inline=316
+RDMA activated: qpn=2658->1216 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2659 inline=316
+RDMA activated: qpn=2659->1217 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2660 inline=316
+RDMA activated: qpn=2660->1218 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2661 inline=316
+RDMA activated: qpn=2661->1219 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2662 inline=316
+RDMA activated: qpn=2662->1220 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2663 inline=316
+RDMA activated: qpn=2663->1221 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2664 inline=316
+RDMA activated: qpn=2664->1237 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2665 inline=316
+RDMA activated: qpn=2665->1238 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2666 inline=316
+RDMA activated: qpn=2666->1239 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2667 inline=316
+RDMA activated: qpn=2667->1240 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2668 inline=316
+RDMA activated: qpn=2668->1241 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2669 inline=316
+RDMA activated: qpn=2669->1242 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2670 inline=316
+RDMA activated: qpn=2670->1243 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2671 inline=316
+RDMA activated: qpn=2671->1244 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2672 inline=316
+RDMA activated: qpn=2672->1245 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2673 inline=316
+RDMA activated: qpn=2673->1246 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2674 inline=316
+RDMA activated: qpn=2674->1247 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2675 inline=316
+RDMA activated: qpn=2675->1248 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2676 inline=316
+RDMA activated: qpn=2676->1249 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2677 inline=316
+RDMA activated: qpn=2677->1250 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2678 inline=316
+RDMA activated: qpn=2678->1251 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2679 inline=316
+RDMA activated: qpn=2679->1252 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2680 inline=316
+RDMA activated: qpn=2680->1253 mtu=4096 rx_depth=24
+RDMA probed: dev=rocep1s0f1 gid=3 RoCEv2 qpn=2681 inline=316
+RDMA activated: qpn=2681->1254 mtu=4096 rx_depth=24
+load_tensors: offloading output layer to GPU
+load_tensors: offloading 60 repeating layers to GPU
+load_tensors: offloaded 62/62 layers to GPU
+load_tensors:          CPU model buffer size =   770.00 MiB
+load_tensors:        CUDA0 model buffer size = 76549.59 MiB
+load_tensors: RPC0[10.10.0.1:50052] model buffer size = 83548.53 MiB
+load_tensors: RPC0[10.10.0.3:50052] model buffer size = 79272.39 MiB
+load_tensors: RPC0[10.10.0.4:50052] model buffer size = 84557.22 MiB
+load_all_data: LLAMA_RPC_PARALLEL_LOAD_ASYNC active — non-blocking worker dispatch
+load_all_data: head_load_profile: upload_backend=NULL_SYNC_FALLBACK
+load_all_data: head load profile — loop wall 0.690 s (head_read_pool=8)
+  ring  : tensors=0  bytes=  0.000 GiB  read=  0.000 s  event_sync=  0.000 s  submit=  0.000 s  wait=  0.000 s
+  sync  : tensors=0  bytes=  0.000 GiB  read=  0.000 s  htod      =  0.000 s
+  cpu   : tensors=1  bytes=  0.752 GiB  read=  0.690 s
+  rpc   : ok=0  fail=0  dispatch_time=  0.000 s
+launch_load_all_data: spawned async loader thread for buffer CUDA0 (74.76 GiB)
+launch_load_all_data: spawned async loader thread for buffer RPC0[10.10.0.1:50052] (81.59 GiB)
+launch_load_all_data: spawned async loader thread for buffer RPC0[10.10.0.3:50052] (77.41 GiB)
+launch_load_all_data: spawned async loader thread for buffer RPC0[10.10.0.4:50052] (82.58 GiB)
+load_all_data: head_load_profile: upload_backend=NULL_SYNC_FALLBACK
+.
+load_all_data: head_load_profile: upload_backend=NULL_SYNC_FALLBACK
+load_all_data: head_load_profile: upload_backend=NULL_SYNC_FALLBACK
+.
+.
+.
+load_all_data: head_load_profile: upload_backend=ASYNC_RING
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+load_all_data: head load profile — loop wall 25.868 s (head_read_pool=8)
+  ring  : tensors=254  bytes= 74.755 GiB  read=  0.000 s  event_sync=  0.300 s  submit=  1.053 s  wait= 23.464 s
+  sync  : tensors=0  bytes=  0.000 GiB  read=  0.000 s  htod      =  0.000 s
+  cpu   : tensors=0  bytes=  0.000 GiB  read=  0.000 s
+  rpc   : ok=0  fail=0  dispatch_time=  0.000 s
+RPC load profile (per-worker):
+  endpoint                    n_set   n_hash    n_hit  n_wread    data_GB    sent_GB    skip_GB   wread_GB   t_set_s  t_hash_s t_wread_s
+  10.10.0.4:50052               181        0        0      181     51.610      0.000      0.000     51.610     0.000     0.000     0.000
+  10.10.0.3:50052               181        0        0      181     51.610      0.000      0.000     51.610     0.000     0.000     0.000
+  10.10.0.1:50052               176        0        0      176     50.625      0.000      0.000     50.625     0.000     0.000     0.000
+  TOTAL                         538        0        0      538    153.844      0.000      0.000    153.844     0.000     0.000     0.000
+  loader wall time: 26.569 s; effective wall throughput: 0.0 MB/s
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+load_all_data: head load profile — loop wall 37.376 s (head_read_pool=8)
+  ring  : tensors=0  bytes=  0.000 GiB  read=  0.000 s  event_sync=  0.000 s  submit=  0.000 s  wait=  0.000 s
+  sync  : tensors=0  bytes=  0.000 GiB  read=  0.000 s  htod      =  0.000 s
+  cpu   : tensors=0  bytes=  0.000 GiB  read=  0.000 s
+  rpc   : ok=270  fail=0  dispatch_time= 37.376 s
+RPC load profile (per-worker):
+  endpoint                    n_set   n_hash    n_hit  n_wread    data_GB    sent_GB    skip_GB   wread_GB   t_set_s  t_hash_s t_wread_s
+  10.10.0.4:50052               271        0        0      271     77.414      0.000      0.000     77.414     0.000     0.000     0.000
+  10.10.0.3:50052               270        0        0      270     77.414      0.000      0.000     77.414     0.000     0.000     0.000
+  10.10.0.1:50052               248        0        0      248     71.268      0.000      0.000     71.268     0.000     0.000     0.000
+  TOTAL                         789        0        0      789    226.097      0.000      0.000    226.097     0.000     0.000     0.000
+  loader wall time: 38.071 s; effective wall throughput: 0.0 MB/s
+.
+.
+.
+.
+load_all_data: head load profile — loop wall 39.376 s (head_read_pool=8)
+  ring  : tensors=0  bytes=  0.000 GiB  read=  0.000 s  event_sync=  0.000 s  submit=  0.000 s  wait=  0.000 s
+  sync  : tensors=0  bytes=  0.000 GiB  read=  0.000 s  htod      =  0.000 s
+  cpu   : tensors=0  bytes=  0.000 GiB  read=  0.000 s
+  rpc   : ok=288  fail=0  dispatch_time= 39.375 s
+RPC load profile (per-worker):
+  endpoint                    n_set   n_hash    n_hit  n_wread    data_GB    sent_GB    skip_GB   wread_GB   t_set_s  t_hash_s t_wread_s
+  10.10.0.4:50052               288        0        0      288     82.575      0.000      0.000     82.575     0.000     0.000     0.000
+  10.10.0.3:50052               270        0        0      270     77.414      0.000      0.000     77.414     0.000     0.000     0.000
+  10.10.0.1:50052               266        0        0      266     76.429      0.000      0.000     76.429     0.000     0.000     0.000
+  TOTAL                         824        0        0      824    236.419      0.000      0.000    236.419     0.000     0.000     0.000
+  loader wall time: 40.071 s; effective wall throughput: 0.0 MB/s
+.
+load_all_data: head load profile — loop wall 41.119 s (head_read_pool=8)
+  ring  : tensors=0  bytes=  0.000 GiB  read=  0.000 s  event_sync=  0.000 s  submit=  0.000 s  wait=  0.000 s
+  sync  : tensors=0  bytes=  0.000 GiB  read=  0.000 s  htod      =  0.000 s
+  cpu   : tensors=0  bytes=  0.000 GiB  read=  0.000 s
+  rpc   : ok=283  fail=0  dispatch_time= 41.118 s
+RPC load profile (per-worker):
+  endpoint                    n_set   n_hash    n_hit  n_wread    data_GB    sent_GB    skip_GB   wread_GB   t_set_s  t_hash_s t_wread_s
+  10.10.0.4:50052               288        0        0      288     82.575      0.000      0.000     82.575     0.000     0.000     0.000
+  10.10.0.3:50052               270        0        0      270     77.414      0.000      0.000     77.414     0.000     0.000     0.000
+  10.10.0.1:50052               283        0        0      283     81.590      0.000      0.000     81.590     0.000     0.000     0.000
+  TOTAL                         841        0        0      841    241.580      0.000      0.000    241.580     0.000     0.000     0.000
+  loader wall time: 41.812 s; effective wall throughput: 0.0 MB/s
+flush_pending_rpc_reads: joined 4 dispatcher thread(s) in 41.120 s; drained pending reads in 5.896 s — ok
+common_init_result: added [EOS] logit bias = -inf
+common_init_result: added <|im_end|> logit bias = -inf
+common_init_result: added [EOT] logit bias = -inf
+common_init_result: added [PAD] logit bias = -inf
+llama_context: constructing llama_context
+llama_context: setting new yarn_attn_factor = 1.0000 (mscale == 1.0, mscale_all_dim = 1.0)
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 8192
+llama_context: n_ctx_seq     = 8192
+llama_context: n_batch       = 512
+llama_context: n_ubatch      = 512
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = enabled
+llama_context: kv_unified    = false
+llama_context: freq_base     = 50000.0
+llama_context: freq_scale    = 0.015625
+llama_context: n_ctx_seq (8192) < n_ctx_train (262144) -- the full capacity of the model will not be utilized
+llama_context:  CUDA_Host  output buffer size =     0.62 MiB
+llama_kv_cache:      CUDA0 KV buffer size =    35.44 MiB
+llama_kv_cache: RPC0[10.10.0.1:50052] KV buffer size =    40.50 MiB
+llama_kv_cache: RPC0[10.10.0.3:50052] KV buffer size =    37.97 MiB
+llama_kv_cache: RPC0[10.10.0.4:50052] KV buffer size =    40.50 MiB
+llama_kv_cache: size =  154.41 MiB (  8192 cells,  61 layers,  1/1 seqs), K (q4_0):  154.41 MiB, V (q4_0):    0.00 MiB
+llama_kv_cache: attn_rot_k = 1, n_embd_head_k_all = 576
+llama_kv_cache: attn_rot_v = 1, n_embd_head_k_all = 512
+sched_reserve: reserving ...
+sched_reserve: resolving fused Gated Delta Net support:
+sched_reserve: fused Gated Delta Net (autoregressive) enabled
+sched_reserve: fused Gated Delta Net (chunked) enabled
+sched_reserve: RPC0[10.10.0.1:50052] compute buffer size =   246.76 MiB
+sched_reserve: RPC0[10.10.0.3:50052] compute buffer size =   260.01 MiB
+sched_reserve: RPC0[10.10.0.4:50052] compute buffer size =   260.01 MiB
+sched_reserve:      CUDA0 compute buffer size =   362.00 MiB
+sched_reserve:        CPU compute buffer size =    44.01 MiB
+sched_reserve: graph nodes  = 4791
+sched_reserve: graph splits = 5
+sched_reserve: reserve took 93.16 ms, sched copies = 1
+common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
+srv    load_model: initializing slots, n_slots = 1
+no implementations specified for speculative decoding
+slot   load_model: id  0 | task -1 | new slot, n_ctx = 8192
+srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+srv    load_model: use `--cache-ram 0` to disable the prompt cache
+srv    load_model: for more info see https://github.com/ggml-org/llama.cpp/pull/16391
+srv          init: init: --cache-idle-slots requires --kv-unified, disabling
+init: chat template, example_format: '<|im_system|>system<|im_middle|>You are a helpful assistant<|im_end|><|im_user|>user<|im_middle|>Hello<|im_end|><|im_assistant|>assistant<|im_middle|><think></think>Hi there<|im_end|><|im_user|>user<|im_middle|>How are you?<|im_end|><|im_assistant|>assistant<|im_middle|><think>'
+srv          init: init: chat template, thinking = 1
+main: model loaded
+main: server is listening on http://0.0.0.0:8080
+main: starting the main loop...
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+srv  get_availabl: updating prompt cache
+srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
+srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 8192 tokens, 8589934592 est)
+srv  get_availabl: prompt cache update took 0.01 ms
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+slot update_slots: id  0 | task 0 | new prompt, n_ctx_slot = 8192, n_keep = 0, task.n_tokens = 20
+slot update_slots: id  0 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
+slot init_sampler: id  0 | task 0 | init sampler, took 0.01 ms, tokens: text = 20, total = 20
+slot update_slots: id  0 | task 0 | prompt processing done, n_tokens = 20, batch.n_tokens = 20
+slot print_timing: id  0 | task 0 | 
+prompt eval time =    1732.92 ms /    20 tokens (   86.65 ms per token,    11.54 tokens per second)
+       eval time =    1214.91 ms /    16 tokens (   75.93 ms per token,    13.17 tokens per second)
+      total time =    2947.83 ms /    36 tokens
+slot      release: id  0 | task 0 | stop processing: n_tokens = 35, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.214 (> 0.100 thold), f_keep = 0.086
+srv  get_availabl: updating prompt cache
+srv   prompt_save:  - saving prompt with length 35, total state size = 0.661 MiB
+srv          load:  - looking for better prompt, base f_keep = 0.086, sim = 0.214
+srv        update:  - cache state: 1 prompts, 0.661 MiB (limits: 8192.000 MiB, 8192 tokens, 433892 est)
+srv        update:    - prompt 0xc14029b416f0:      35 tokens, checkpoints:  0,     0.661 MiB
+srv  get_availabl: prompt cache update took 1.96 ms
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 17 | processing task, is_child = 0
+slot update_slots: id  0 | task 17 | new prompt, n_ctx_slot = 8192, n_keep = 0, task.n_tokens = 14
+slot update_slots: id  0 | task 17 | n_tokens = 3, memory_seq_rm [3, end)
+slot init_sampler: id  0 | task 17 | init sampler, took 0.00 ms, tokens: text = 14, total = 14
+slot update_slots: id  0 | task 17 | prompt processing done, n_tokens = 14, batch.n_tokens = 11
+slot print_timing: id  0 | task 17 | 
+prompt eval time =     485.45 ms /    11 tokens (   44.13 ms per token,    22.66 tokens per second)
+       eval time =    2397.36 ms /    32 tokens (   74.92 ms per token,    13.35 tokens per second)
+      total time =    2882.81 ms /    43 tokens
+slot      release: id  0 | task 17 | stop processing: n_tokens = 45, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.311
+srv  get_availabl: updating prompt cache
+srv   prompt_save:  - saving prompt with length 45, total state size = 0.849 MiB
+srv          load:  - looking for better prompt, base f_keep = 0.311, sim = 1.000
+srv        update:  - cache state: 2 prompts, 1.510 MiB (limits: 8192.000 MiB, 8192 tokens, 433951 est)
+srv        update:    - prompt 0xc14029b416f0:      35 tokens, checkpoints:  0,     0.661 MiB
+srv        update:    - prompt 0xc14029b729f0:      45 tokens, checkpoints:  0,     0.849 MiB
+srv  get_availabl: prompt cache update took 1.89 ms
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 50 | processing task, is_child = 0
+slot update_slots: id  0 | task 50 | new prompt, n_ctx_slot = 8192, n_keep = 0, task.n_tokens = 14
+slot update_slots: id  0 | task 50 | need to evaluate at least 1 token for each active slot (n_past = 14, task.n_tokens() = 14)
+slot update_slots: id  0 | task 50 | n_past was set to 13
+slot update_slots: id  0 | task 50 | n_tokens = 13, memory_seq_rm [13, end)
+slot init_sampler: id  0 | task 50 | init sampler, took 0.00 ms, tokens: text = 14, total = 14
+slot update_slots: id  0 | task 50 | prompt processing done, n_tokens = 14, batch.n_tokens = 1
+slot print_timing: id  0 | task 50 | 
+prompt eval time =      78.06 ms /     1 tokens (   78.06 ms per token,    12.81 tokens per second)
+       eval time =   13717.79 ms /   179 tokens (   76.64 ms per token,    13.05 tokens per second)
+      total time =   13795.85 ms /   180 tokens
+slot      release: id  0 | task 50 | stop processing: n_tokens = 192, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv    operator(): operator(): cleaning up before exit...
+common_memory_breakdown_print: | memory breakdown [MiB]     |  total    free     self   model   context   compute    unaccounted |
+common_memory_breakdown_print: |   - RPC0 (10.10.0.1:50052) | 122502 = 14103 + (83835 = 83548 +      40 +     246) +       24563 |
+common_memory_breakdown_print: |   - RPC1 (10.10.0.3:50052) | 124546 = 21984 + (79570 = 79272 +      37 +     260) +       22991 |
+common_memory_breakdown_print: |   - RPC2 (10.10.0.4:50052) | 124546 = 16732 + (84857 = 84557 +      40 +     260) +       22956 |
+common_memory_breakdown_print: |   - CUDA0 (GB10)           | 124546 = 40133 + (76947 = 76549 +      35 +     362) +        7466 |
+common_memory_breakdown_print: |   - Host                   |                     814 =   770 +       0 +      44                |
