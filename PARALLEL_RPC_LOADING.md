@@ -158,7 +158,7 @@ Most of the code is in `ggml-rpc.cpp`. Reasonable review order:
 
 ## Hardware and measurement notes
 
-All numbers in this document come from one cluster: **1 head + 3 workers, all NVIDIA GB10 (Grace-Blackwell) nodes with 120 GiB LPDDR5X unified memory, local NVMe, 200 GbE RDMA between them, model replicated at the same path on each node.** Single data point — the relative win shifts with network and storage.
+All numbers in this document come from one cluster: **1 head + 3 workers, all NVIDIA GB10 (Grace-Blackwell) nodes with 128 GB LPDDR5X unified memory, local NVMe, 200 GbE RDMA between them, model replicated at the same path on each node.** Single data point — the relative win shifts with network and storage.
 
 - **Slower networks strengthen the case**: on stock llama.cpp, head-push cold load scales inversely with network bandwidth, so on 10/40 GbE the baseline is much worse than 701 s while the worker-read path (where bytes don't cross the wire) stays bounded by local NVMe. We have not measured this; the geometry says the speedup ratio increases.
 - **NFS-shared model with the optimized path**: not measured directly. Read QD>1 still helps (typical: 2–4× over QD=1 on NFS), but absolute wall is NFS-bound, not local-NVMe-bound.

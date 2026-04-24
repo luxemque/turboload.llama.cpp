@@ -13,7 +13,7 @@ Each log includes the full llama.cpp build banner, RDMA probe output, all `LLAMA
 
 ## Hardware
 
-- **Nodes**: 1 head + 3 RPC workers, all NVIDIA GB10 (Grace-Blackwell). 120 GiB LPDDR5X unified memory per node.
+- **Nodes**: 1 head + 3 RPC workers, all NVIDIA GB10 (Grace-Blackwell). 128 GB LPDDR5X unified memory per node.
 - **Storage**: model replicated to local NVMe on every node at the same absolute path.
 - **Network**: 200 GbE RDMA (RoCEv2) between nodes.
 
