@@ -64,7 +64,7 @@ Five commits, each a cohesive piece of the change:
 
 ## Status
 
-The branch is feature-gated behind env vars and has been stable in production on one cluster (1 head + 3 workers, all NVIDIA GB10 / Grace-Blackwell, 200 GbE) since April 2026. It is not upstreamed; an upstream PR against `ggml-org/llama.cpp` will not be opened as this would violate their contribution policy. If you are a maintainer and find this useful... feel free to use the approach/code. Having this in the official distribution would help others who do not have datacenter-class GPU equipment at their hands.
+The branch is feature-gated behind env vars and has been stable in production on one cluster (1 head + 3 workers, all NVIDIA GB10 / Grace-Blackwell, 200 GbE) since April 2026. I am not opening this as an upstream PR myself, because I want to respect the ggml-org / llama.cpp contribution rules around AI-assisted code. If you are a maintainer and find this useful... feel free to use the approach/code. Having this in the official distribution would help others who do not have datacenter-class GPU equipment at their hands.
 
 ## License
 
