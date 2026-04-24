@@ -22,7 +22,7 @@ Large MoE models in the 200–600 GB range no longer fit on any single device, s
 
 Twelve minutes matters: every restart after a crash, binary update, or config change blocks serving that long; dev iteration on any loader or backend change costs a twelve-minute round trip per build; failover from one head to another is as slow as a cold start.
 
-The fix is RPC-specific, doesn't touch inference, and is gated behind env vars — which made it seem worth publishing the archive. The failure modes navigated along the way (an mmap regression, a QD=8 deadlock on the first attempt, a dedicated-uploader variant that regressed startup time, and a UMA-memory finding that invalidates "warm page cache makes reads free" intuition on Grace-Blackwell hardware) are the kind of finding that costs each team a week to rediscover independently.
+The fix is RPC-specific, doesn't touch inference, and is gated behind env vars — which made it seem worth publishing the archive.
 
 ## Prerequisites / assumptions
 
