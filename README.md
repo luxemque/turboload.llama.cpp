@@ -16,8 +16,6 @@ Five mechanisms account for the speedup:
 4. **Async head dispatch + head-side pread pool** — the head no longer blocks on RPC replies per tensor, and the head-local GPU's shard reads go through an 8-way POSIX `pread` pool.
 5. **`tset` mutex on the worker pool** — serialising `ggml_backend_tensor_set` across the eight worker threads to avoid CUDA context thrash under concurrency.
 
-Three ideas were tried and reverted along the way: mmap fast-path, dedicated single-uploader thread, larger staging ring.
-
 ## Why
 
 Large MoE models in the 200–600 GB range no longer fit on any single device, so multi-node RPC sharding has become the realistic deployment pattern. But the stock RPC loader pulls tensors serially over a single socket — the head opens the file, reads one shard at a time, and pushes bytes to the target worker before moving on. For a 318 GB model that's ~12 minutes of cold load, with the GPUs idle most of the way.
