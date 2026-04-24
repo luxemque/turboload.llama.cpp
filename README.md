@@ -66,7 +66,7 @@ Five commits, each a cohesive piece of the change:
 
 ## Status
 
-The branch is feature-gated behind env vars and has been stable in production on one cluster (three-worker GB10 / Grace-Blackwell, 200 GbE) since April 2026. It is not upstreamed; an upstream PR against `ggml-org/llama.cpp` is feasible but hasn't been opened.
+The branch is feature-gated behind env vars and has been stable in production on one cluster (1 head + 3 workers, all NVIDIA GB10 / Grace-Blackwell, 200 GbE) since April 2026. It is not upstreamed; an upstream PR against `ggml-org/llama.cpp` is feasible but hasn't been opened.
 
 ## License
 
